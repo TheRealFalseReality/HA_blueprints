@@ -501,12 +501,10 @@ blueprint:
           description: |
             How long to silence notifications for this camera when requested as part of the actionable notification. 
             Note: This only applies to new objects. Existing tracked objects will not be affected.
-          default: 30
+          default: 
+            minutes: 30
           selector:
-            number:
-              max: 3600
-              min: 0
-              unit_of_measurement: minutes
+            duration: 
         loiter_timer:
           name: Loitering Notifications (Optional)
           description: >
@@ -865,8 +863,7 @@ action:
               entity_id: "{{ this.entity_id }}"
             data:
               stop_actions: false
-          - delay:
-              minutes: !input silence_timer
+          - delay: !input silence_timer
           - service: automation.turn_on
             target:
               entity_id: "{{ this.entity_id }}"
